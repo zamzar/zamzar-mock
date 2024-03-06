@@ -1,0 +1,10 @@
+{
+  "test_credits_remaining" : 3,
+  "credits_remaining" : 18,
+  "plan" : {
+    "name" : "Developer",
+    "price_per_month" : 0,
+    "conversions_per_month" : 25,
+    "maximum_file_size" : 1048576
+  }
+}

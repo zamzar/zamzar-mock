@@ -1,0 +1,12 @@
+{
+  "id" : 1,
+  "key" : "GiVUYsF4A8ssq93FR48H",
+  "url" : "https://www.example.com/example.mp3",
+  "status" : "successful",
+  "file" :  {
+    "id" : 1,
+    "name" : "example.mp3",
+    "size" : 48065,
+    "format" : "mp3"
+  }
+}
