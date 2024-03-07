@@ -1,4 +1,4 @@
-.PHONY: clean build run publish
+.PHONY: clean build test run publish
 
 clean:
 	@rm -rf target
@@ -8,6 +8,9 @@ clean:
 
 build:
 	@docker build -t zamzar-mock .
+
+test: build
+    @true
 
 run: build
 	@docker run --rm --name zamzar-mock -p 8080:8080 zamzar-mock
