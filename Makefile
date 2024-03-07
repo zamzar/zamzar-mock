@@ -10,7 +10,7 @@ build:
 	@docker build -t zamzar-mock .
 
 test: build
-    @true
+	@true
 
 run: build
 	@docker run --rm --name zamzar-mock -p 8080:8080 zamzar-mock
