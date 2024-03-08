@@ -45,3 +45,4 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           generate_release_notes: true
+          tag_name: ${{ steps.bumpr.outputs.next_version }}
