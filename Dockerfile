@@ -7,12 +7,12 @@ RUN apt-get update && apt-get install -y maven
 RUN mkdir -p /usr/src/zamzar-mock
 COPY pom.xml /usr/src/zamzar-mock
 WORKDIR /usr/src/zamzar-mock
-RUN mvn dependency:go-offline
+RUN mvn --batch-mode --no-transfer-progress dependency:go-offline
 
 # Build the JAR
 COPY . /usr/src/zamzar-mock
 WORKDIR /usr/src/zamzar-mock
-RUN mvn package
+RUN mvn --batch-mode --no-transfer-progress package
 
 # Run JAR
 CMD ["java", "-jar", "/usr/src/zamzar-mock/target/zamzar-mock-1.0.0-SNAPSHOT.jar"]

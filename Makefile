@@ -7,7 +7,9 @@ clean:
 	@docker rmi zamzar-mock || true
 
 build:
-	@docker build -t zamzar-mock .
+    # --platform and --load can't be used together: https://github.com/docker/buildx/issues/59
+	@docker buildx build --platform=linux/amd64,linux/arm64 --progress=plain -t zamzar-mock .
+	@docker buildx build --load -t zamzar-mock .
 
 test: build
 	@docker stop zamzar-mock-test 2> /dev/null || true
