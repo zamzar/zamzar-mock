@@ -32,6 +32,6 @@ publish:
         echo "Skipping publish: there are no tags found pointing at $$head"; \
     fi; \
     for tag in $$tags; do \
-        docker buildx build --push --platform=linux/amd64,linux/arm64 --progress=plain -t $$tag .; \
+        docker buildx build --push --platform=linux/amd64,linux/arm64 --progress=plain -t zamzar/zamzar-mock:$$tag .; \
     done; \
     docker buildx build --push --platform=linux/amd64,linux/arm64 --progress=plain -t zamzar/zamzar-mock:latest .
