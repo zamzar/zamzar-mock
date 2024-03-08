@@ -10,7 +10,15 @@ build:
 	@docker build -t zamzar-mock .
 
 test: build
-	@true
+	@docker stop zamzar-mock-test 2> /dev/null || true
+	@docker rm zamzar-mock-test 2> /dev/null || true
+	@docker run --detach --rm --name zamzar-mock-test -p 8081:8080 zamzar-mock > /dev/null
+	@curl \
+	    --retry 5 --retry-delay 1 --retry-all-errors \
+	    --fail \
+	    -4 \
+	    http://localhost:8081/jobs/1 -H 'Authorization: Bearer GiVUYsF4A8ssq93FR48H'
+	@docker stop zamzar-mock-test > /dev/null
 
 run: build
 	@docker run --rm --name zamzar-mock -p 8080:8080 zamzar-mock
