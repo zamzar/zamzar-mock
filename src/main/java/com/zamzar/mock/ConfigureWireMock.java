@@ -1,23 +1,27 @@
 package com.zamzar.mock;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
-import com.github.tomakehurst.wiremock.client.MappingBuilder;
+import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.SingleRootFileSource;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
 import com.github.tomakehurst.wiremock.stubbing.Scenario;
-import com.github.tomakehurst.wiremock.stubbing.StubMapping;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 
 public class ConfigureWireMock {
+
+    protected static FileSource fileSource = new SingleRootFileSource("src/main/resources");
+
     public static void main(String[] args) {
         printBanner();
 
@@ -27,11 +31,12 @@ public class ConfigureWireMock {
         // Keep the application running
         try {
             Thread.sleep(Long.MAX_VALUE);
-        } catch (InterruptedException e) {}
+        } catch (InterruptedException e) {
+        }
     }
 
     protected static WireMockServer startWireMock() {
-        final WireMockConfiguration config = options().fileSource(new SingleRootFileSource("src/main/resources"));
+        final WireMockConfiguration config = options().fileSource(fileSource).extensions(new PaginationTransformer());
         final WireMockServer wireMockServer = new WireMockServer(config);
         wireMockServer.start();
 
@@ -48,7 +53,8 @@ public class ConfigureWireMock {
             while ((line = reader.readLine()) != null) {
                 System.out.println(line);
             }
-        } catch (IOException | NullPointerException e) {}
+        } catch (IOException | NullPointerException e) {
+        }
 
         System.out.println();
     }
@@ -80,7 +86,14 @@ public class ConfigureWireMock {
     }
 
     protected void stubFiles() {
-        IntStream.rangeClosed(1, 7).forEach(this::stubFile);
+        final List<Integer> fileIds = IntStream
+            .rangeClosed(1, 7)
+            .boxed()
+            .sorted((a, b) -> b - a) // files are returned in descending ID order from list endpoint
+            .collect(Collectors.toList());
+
+        fileIds.forEach(this::stubFile);
+        stubPaginatedList("files", fileIds.stream().map(Object::toString), "id");
         stubFileUpload();
     }
 
@@ -133,7 +146,13 @@ public class ConfigureWireMock {
     }
 
     protected void stubFormats() {
-        List.of("mp3").forEach(this::stubFormat);
+        final List<String> formats =
+            Stream.of("mp3", "txt")
+                .sorted() // formats are returned in ascending name order from list endpoint
+                .collect(Collectors.toList());
+
+        formats.forEach(this::stubFormat);
+        stubPaginatedList("formats", formats.stream().map(Object::toString), "name");
     }
 
     protected void stubFormat(String name) {
@@ -155,7 +174,14 @@ public class ConfigureWireMock {
     }
 
     protected void stubImports() {
-        IntStream.rangeClosed(1, 1).forEach(this::stubImport);
+        final List<Integer> importIds = IntStream
+            .rangeClosed(1, 1)
+            .boxed()
+            .sorted((a, b) -> b - a) // imports are returned in descending ID order from list endpoint
+            .collect(Collectors.toList());
+
+        importIds.forEach(this::stubImport);
+        stubPaginatedList("imports", importIds.stream().map(i -> i + ".initialising"), "id");
         stubStartImport();
     }
 
@@ -201,7 +227,14 @@ public class ConfigureWireMock {
     }
 
     protected void stubJobs() {
-        IntStream.rangeClosed(1, 3).forEach(this::stubJob);
+        final List<Integer> jobIds = IntStream
+            .rangeClosed(1, 3)
+            .boxed()
+            .sorted((a, b) -> b - a) // jobs are returned in descending ID order from list endpoint
+            .collect(Collectors.toList());
+
+        jobIds.forEach(this::stubJob);
+        stubPaginatedList("jobs", jobIds.stream().map(i -> i + ".initialising"), "id");
         stubSubmitJob();
     }
 
@@ -234,6 +267,24 @@ public class ConfigureWireMock {
                 .withStatus(200)
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("jobs/" + id + ".completed.json")));
+
+        wiremock.stubFor(delete(urlEqualTo("/jobs/" + id))
+            .inScenario("JobProgression" + id)
+            .willSetStateTo("JobCancelled")
+            .withHeader("Authorization", equalTo("Bearer " + API_KEY))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile("jobs/" + id + ".cancelled.json")));
+
+        wiremock.stubFor(get(urlEqualTo("/jobs/" + id))
+            .inScenario("JobProgression" + id)
+            .whenScenarioStateIs("JobCancelled")
+            .withHeader("Authorization", equalTo("Bearer " + API_KEY))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile("jobs/" + id + ".cancelled.json")));
     }
 
     protected void stubSubmitJob() {
@@ -256,6 +307,23 @@ public class ConfigureWireMock {
                 .withStatus(422)
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("errors/422.target_format.json")));
+    }
+
+    protected void stubPaginatedList(String resource, Stream<String> filenames, String idFieldName) {
+        final List<String> paths = filenames
+            .map(filename -> "__files/" + resource + "/" + filename + ".json")
+            .collect(Collectors.toList());
+
+        wiremock.stubFor(get(urlMatching("/" + resource + "(\\?.*)?"))
+            .withHeader("Authorization", equalTo("Bearer " + API_KEY))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withTransformers(PaginationTransformer.NAME)
+                .withTransformerParameter(PaginationTransformer.PATHS_PARAMETER, paths)
+                .withTransformerParameter(PaginationTransformer.FILE_SOURCE_PARAMETER, fileSource)
+                .withTransformerParameter(PaginationTransformer.ID_FIELD_NAME_PARAMETER, idFieldName)
+            ));
     }
 
     protected void stubCatchAlls() {
