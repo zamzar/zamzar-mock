@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "status": "cancelled",
+  "source_file": {
+    "id": 3,
+    "name": "example.key",
+    "size": 420568
+  },
+  "target_files": [],
+  "target_format": "png",
+  "credit_cost": 1
+}

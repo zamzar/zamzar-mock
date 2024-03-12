@@ -30,6 +30,10 @@
       "credit_cost": 1
     },
     {
+      "name": "txt",
+      "credit_cost": 1
+    },
+    {
       "name": "wav",
       "credit_cost": 1
     },

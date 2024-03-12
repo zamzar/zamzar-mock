@@ -1,0 +1,17 @@
+{
+  "name": "txt",
+  "targets": [
+    {
+      "name": "epub",
+      "credit_cost": 1
+    },
+    {
+      "name": "mp3",
+      "credit_cost": 3
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "id": 1,
+  "status": "cancelled",
+  "target_format": "mp3",
+  "source_file": {
+    "id": 1,
+    "name": "example.mp3",
+    "size": 123456
+  },
+  "target_files": []
+}
