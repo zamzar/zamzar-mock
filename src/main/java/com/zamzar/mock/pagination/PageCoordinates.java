@@ -34,6 +34,10 @@ public class PageCoordinates {
         return items.subList(range.from, range.to);
     }
 
+    public int getLimit() {
+        return limit;
+    }
+
     @Override
     public String toString() {
         return "PageCoordinates{" +
