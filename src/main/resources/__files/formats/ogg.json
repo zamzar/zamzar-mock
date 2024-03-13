@@ -1,5 +1,5 @@
 {
-  "name": "mp3",
+  "name": "ogg",
   "targets": [
     {
       "name": "aac",
@@ -26,11 +26,11 @@
       "credit_cost": 1
     },
     {
-      "name": "mp4",
+      "name": "mp3",
       "credit_cost": 1
     },
     {
-      "name": "ogg",
+      "name": "mp4",
       "credit_cost": 1
     },
     {

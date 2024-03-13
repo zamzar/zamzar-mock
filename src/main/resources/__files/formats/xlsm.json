@@ -1,44 +1,44 @@
 {
-  "name": "mp3",
+  "name": "xlsm",
   "targets": [
     {
-      "name": "aac",
+      "name": "csv",
       "credit_cost": 1
     },
     {
-      "name": "ac3",
+      "name": "html",
       "credit_cost": 1
     },
     {
-      "name": "flac",
+      "name": "jpg",
       "credit_cost": 1
     },
     {
-      "name": "json",
+      "name": "mdb",
       "credit_cost": 1
     },
     {
-      "name": "m4a",
+      "name": "ods",
       "credit_cost": 1
     },
     {
-      "name": "m4r",
+      "name": "pcx",
       "credit_cost": 1
     },
     {
-      "name": "mp4",
+      "name": "pdf",
       "credit_cost": 1
     },
     {
-      "name": "ogg",
+      "name": "png",
       "credit_cost": 1
     },
     {
-      "name": "srt",
+      "name": "ps",
       "credit_cost": 1
     },
     {
-      "name": "tsv",
+      "name": "rtf",
       "credit_cost": 1
     },
     {
@@ -46,15 +46,15 @@
       "credit_cost": 1
     },
     {
-      "name": "vtt",
+      "name": "xls",
       "credit_cost": 1
     },
     {
-      "name": "wav",
+      "name": "xlsx",
       "credit_cost": 1
     },
     {
-      "name": "wma",
+      "name": "xml",
       "credit_cost": 1
     }
   ]

@@ -1,0 +1,37 @@
+{
+  "name": "xps",
+  "targets": [
+    {
+      "name": "bmp",
+      "credit_cost": 1
+    },
+    {
+      "name": "gif",
+      "credit_cost": 1
+    },
+    {
+      "name": "jpg",
+      "credit_cost": 1
+    },
+    {
+      "name": "pcx",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "png",
+      "credit_cost": 1
+    },
+    {
+      "name": "thumbnail",
+      "credit_cost": 1
+    },
+    {
+      "name": "tiff",
+      "credit_cost": 1
+    }
+  ]
+}

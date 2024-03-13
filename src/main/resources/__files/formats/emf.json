@@ -1,60 +1,56 @@
 {
-  "name": "mp3",
+  "name": "emf",
   "targets": [
     {
-      "name": "aac",
+      "name": "bmp",
       "credit_cost": 1
     },
     {
-      "name": "ac3",
+      "name": "gif",
       "credit_cost": 1
     },
     {
-      "name": "flac",
+      "name": "ico",
       "credit_cost": 1
     },
     {
-      "name": "json",
+      "name": "jpg",
       "credit_cost": 1
     },
     {
-      "name": "m4a",
+      "name": "pcx",
       "credit_cost": 1
     },
     {
-      "name": "m4r",
+      "name": "pdf",
       "credit_cost": 1
     },
     {
-      "name": "mp4",
+      "name": "png",
       "credit_cost": 1
     },
     {
-      "name": "ogg",
+      "name": "ps",
       "credit_cost": 1
     },
     {
-      "name": "srt",
+      "name": "tga",
       "credit_cost": 1
     },
     {
-      "name": "tsv",
+      "name": "thumbnail",
       "credit_cost": 1
     },
     {
-      "name": "txt",
+      "name": "tiff",
       "credit_cost": 1
     },
     {
-      "name": "vtt",
+      "name": "wbmp",
       "credit_cost": 1
     },
     {
-      "name": "wav",
-      "credit_cost": 1
-    },
-    {
-      "name": "wma",
+      "name": "webp",
       "credit_cost": 1
     }
   ]

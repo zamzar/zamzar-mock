@@ -1,0 +1,33 @@
+{
+  "name": "odt",
+  "targets": [
+    {
+      "name": "html",
+      "credit_cost": 1
+    },
+    {
+      "name": "jpg",
+      "credit_cost": 1
+    },
+    {
+      "name": "md",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "png",
+      "credit_cost": 1
+    },
+    {
+      "name": "ps",
+      "credit_cost": 1
+    },
+    {
+      "name": "txt",
+      "credit_cost": 1
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "name": "ods",
+  "targets": [
+    {
+      "name": "csv",
+      "credit_cost": 1
+    },
+    {
+      "name": "html",
+      "credit_cost": 1
+    },
+    {
+      "name": "jpg",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "png",
+      "credit_cost": 1
+    }
+  ]
+}

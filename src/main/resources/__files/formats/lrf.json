@@ -1,44 +1,56 @@
 {
-  "name": "mp3",
+  "name": "lrf",
   "targets": [
     {
-      "name": "aac",
+      "name": "azw3",
       "credit_cost": 1
     },
     {
-      "name": "ac3",
+      "name": "epub",
       "credit_cost": 1
     },
     {
-      "name": "flac",
+      "name": "fb2",
       "credit_cost": 1
     },
     {
-      "name": "json",
+      "name": "htmlz",
       "credit_cost": 1
     },
     {
-      "name": "m4a",
+      "name": "lit",
       "credit_cost": 1
     },
     {
-      "name": "m4r",
+      "name": "mobi",
       "credit_cost": 1
     },
     {
-      "name": "mp4",
+      "name": "pdb",
       "credit_cost": 1
     },
     {
-      "name": "ogg",
+      "name": "pdf",
       "credit_cost": 1
     },
     {
-      "name": "srt",
+      "name": "prc",
       "credit_cost": 1
     },
     {
-      "name": "tsv",
+      "name": "rb",
+      "credit_cost": 1
+    },
+    {
+      "name": "rtf",
+      "credit_cost": 1
+    },
+    {
+      "name": "snb",
+      "credit_cost": 1
+    },
+    {
+      "name": "tcr",
       "credit_cost": 1
     },
     {
@@ -46,15 +58,7 @@
       "credit_cost": 1
     },
     {
-      "name": "vtt",
-      "credit_cost": 1
-    },
-    {
-      "name": "wav",
-      "credit_cost": 1
-    },
-    {
-      "name": "wma",
+      "name": "txtz",
       "credit_cost": 1
     }
   ]

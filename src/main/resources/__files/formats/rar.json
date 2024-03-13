@@ -1,0 +1,37 @@
+{
+  "name": "rar",
+  "targets": [
+    {
+      "name": "7z",
+      "credit_cost": 1
+    },
+    {
+      "name": "cab",
+      "credit_cost": 1
+    },
+    {
+      "name": "lzh",
+      "credit_cost": 1
+    },
+    {
+      "name": "tar",
+      "credit_cost": 1
+    },
+    {
+      "name": "tar.bz2",
+      "credit_cost": 1
+    },
+    {
+      "name": "tar.gz",
+      "credit_cost": 1
+    },
+    {
+      "name": "yz1",
+      "credit_cost": 1
+    },
+    {
+      "name": "zip",
+      "credit_cost": 1
+    }
+  ]
+}

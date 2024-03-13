@@ -1,5 +1,5 @@
 {
-  "name": "mp3",
+  "name": "wav",
   "targets": [
     {
       "name": "aac",
@@ -26,6 +26,10 @@
       "credit_cost": 1
     },
     {
+      "name": "mp3",
+      "credit_cost": 1
+    },
+    {
       "name": "mp4",
       "credit_cost": 1
     },
@@ -47,10 +51,6 @@
     },
     {
       "name": "vtt",
-      "credit_cost": 1
-    },
-    {
-      "name": "wav",
       "credit_cost": 1
     },
     {

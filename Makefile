@@ -1,4 +1,4 @@
-.PHONY: clean build test run publish
+.PHONY: clean build test run publish sync-formats
 
 clean:
 	@rm -rf target
@@ -35,3 +35,6 @@ publish:
         docker buildx build --push --platform=linux/amd64,linux/arm64 --progress=plain -t zamzar/zamzar-mock:$$tag .; \
     done; \
     docker buildx build --push --platform=linux/amd64,linux/arm64 --progress=plain -t zamzar/zamzar-mock:latest .
+
+sync-formats:
+	@./bin/sync-formats.sh ./src/main/resources/__files/formats
