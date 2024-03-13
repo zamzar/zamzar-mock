@@ -1,0 +1,10 @@
+{
+  "id": 2,
+  "key": "GiVUYsF4A8ssq93FR48H",
+  "url": "https://www.example.com/example.doc",
+  "status": "failed",
+  "failure": {
+    "code": 7,
+    "message": "The size of the imported file (1.2 GB) exceeds the maximum file size cap for the current plan (1 GB)."
+  }
+}

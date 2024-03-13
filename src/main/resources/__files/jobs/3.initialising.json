@@ -1,7 +1,7 @@
 {
   "id": 3,
   "status": "initialising",
-  "target_format": "mp3",
+  "target_format": "txt",
   "source_file": {
     "id": 1,
     "name": "example.mp3",

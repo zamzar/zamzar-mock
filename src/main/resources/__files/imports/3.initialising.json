@@ -1,0 +1,6 @@
+{
+  "id": 3,
+  "key": "GiVUYsF4A8ssq93FR48H",
+  "url": "s3://aws-prod-creds@example-bucket/example.doc",
+  "status": "initialising"
+}
