@@ -1,0 +1,45 @@
+{
+  "name": "msg",
+  "targets": [
+    {
+      "name": "doc",
+      "credit_cost": 2
+    },
+    {
+      "name": "eml",
+      "credit_cost": 2
+    },
+    {
+      "name": "html",
+      "credit_cost": 2
+    },
+    {
+      "name": "jpg",
+      "credit_cost": 2
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 2
+    },
+    {
+      "name": "rtf",
+      "credit_cost": 2
+    },
+    {
+      "name": "tiff",
+      "credit_cost": 2
+    },
+    {
+      "name": "txt",
+      "credit_cost": 2
+    },
+    {
+      "name": "xls",
+      "credit_cost": 2
+    },
+    {
+      "name": "xps",
+      "credit_cost": 2
+    }
+  ]
+}

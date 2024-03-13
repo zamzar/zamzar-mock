@@ -1,5 +1,5 @@
 {
-  "name": "mp3",
+  "name": "ra",
   "targets": [
     {
       "name": "aac",
@@ -14,10 +14,6 @@
       "credit_cost": 1
     },
     {
-      "name": "json",
-      "credit_cost": 1
-    },
-    {
       "name": "m4a",
       "credit_cost": 1
     },
@@ -26,27 +22,15 @@
       "credit_cost": 1
     },
     {
+      "name": "mp3",
+      "credit_cost": 1
+    },
+    {
       "name": "mp4",
       "credit_cost": 1
     },
     {
       "name": "ogg",
-      "credit_cost": 1
-    },
-    {
-      "name": "srt",
-      "credit_cost": 1
-    },
-    {
-      "name": "tsv",
-      "credit_cost": 1
-    },
-    {
-      "name": "txt",
-      "credit_cost": 1
-    },
-    {
-      "name": "vtt",
       "credit_cost": 1
     },
     {

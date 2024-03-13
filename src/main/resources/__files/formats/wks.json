@@ -1,0 +1,17 @@
+{
+  "name": "wks",
+  "targets": [
+    {
+      "name": "html",
+      "credit_cost": 1
+    },
+    {
+      "name": "xls",
+      "credit_cost": 2
+    },
+    {
+      "name": "xlsx",
+      "credit_cost": 2
+    }
+  ]
+}

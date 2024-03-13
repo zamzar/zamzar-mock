@@ -1,0 +1,41 @@
+{
+  "name": "tex",
+  "targets": [
+    {
+      "name": "doc",
+      "credit_cost": 1
+    },
+    {
+      "name": "docx",
+      "credit_cost": 1
+    },
+    {
+      "name": "epub",
+      "credit_cost": 1
+    },
+    {
+      "name": "fb2",
+      "credit_cost": 1
+    },
+    {
+      "name": "html",
+      "credit_cost": 1
+    },
+    {
+      "name": "md",
+      "credit_cost": 1
+    },
+    {
+      "name": "odt",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "rtf",
+      "credit_cost": 1
+    }
+  ]
+}

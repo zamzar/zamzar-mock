@@ -1,0 +1,33 @@
+{
+  "name": "odp",
+  "targets": [
+    {
+      "name": "html",
+      "credit_cost": 1
+    },
+    {
+      "name": "jpg",
+      "credit_cost": 1
+    },
+    {
+      "name": "pcx",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "png",
+      "credit_cost": 1
+    },
+    {
+      "name": "ps",
+      "credit_cost": 1
+    },
+    {
+      "name": "swf",
+      "credit_cost": 1
+    }
+  ]
+}

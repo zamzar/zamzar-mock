@@ -1,6 +1,14 @@
 {
-  "name": "mp3",
+  "name": "mov",
   "targets": [
+    {
+      "name": "3g2",
+      "credit_cost": 1
+    },
+    {
+      "name": "3gp",
+      "credit_cost": 1
+    },
     {
       "name": "aac",
       "credit_cost": 1
@@ -10,23 +18,35 @@
       "credit_cost": 1
     },
     {
+      "name": "avi",
+      "credit_cost": 1
+    },
+    {
       "name": "flac",
       "credit_cost": 1
+    },
+    {
+      "name": "flv",
+      "credit_cost": 1
+    },
+    {
+      "name": "gif",
+      "credit_cost": 2
     },
     {
       "name": "json",
       "credit_cost": 1
     },
     {
-      "name": "m4a",
-      "credit_cost": 1
-    },
-    {
-      "name": "m4r",
+      "name": "mp3",
       "credit_cost": 1
     },
     {
       "name": "mp4",
+      "credit_cost": 1
+    },
+    {
+      "name": "mpg",
       "credit_cost": 1
     },
     {
@@ -54,7 +74,11 @@
       "credit_cost": 1
     },
     {
-      "name": "wma",
+      "name": "webm",
+      "credit_cost": 1
+    },
+    {
+      "name": "wmv",
       "credit_cost": 1
     }
   ]

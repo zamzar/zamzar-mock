@@ -1,6 +1,14 @@
 {
-  "name": "mp3",
+  "name": "asf",
   "targets": [
+    {
+      "name": "3g2",
+      "credit_cost": 1
+    },
+    {
+      "name": "3gp",
+      "credit_cost": 1
+    },
     {
       "name": "aac",
       "credit_cost": 1
@@ -10,19 +18,23 @@
       "credit_cost": 1
     },
     {
+      "name": "avi",
+      "credit_cost": 1
+    },
+    {
       "name": "flac",
       "credit_cost": 1
     },
     {
-      "name": "json",
+      "name": "flv",
       "credit_cost": 1
     },
     {
-      "name": "m4a",
+      "name": "mov",
       "credit_cost": 1
     },
     {
-      "name": "m4r",
+      "name": "mp3",
       "credit_cost": 1
     },
     {
@@ -30,23 +42,11 @@
       "credit_cost": 1
     },
     {
+      "name": "mpg",
+      "credit_cost": 1
+    },
+    {
       "name": "ogg",
-      "credit_cost": 1
-    },
-    {
-      "name": "srt",
-      "credit_cost": 1
-    },
-    {
-      "name": "tsv",
-      "credit_cost": 1
-    },
-    {
-      "name": "txt",
-      "credit_cost": 1
-    },
-    {
-      "name": "vtt",
       "credit_cost": 1
     },
     {
@@ -54,7 +54,11 @@
       "credit_cost": 1
     },
     {
-      "name": "wma",
+      "name": "webm",
+      "credit_cost": 1
+    },
+    {
+      "name": "wmv",
       "credit_cost": 1
     }
   ]

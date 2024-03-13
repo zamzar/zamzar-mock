@@ -2,6 +2,10 @@
   "name": "txt",
   "targets": [
     {
+      "name": "enhanced.mp3",
+      "credit_cost": 5
+    },
+    {
       "name": "epub",
       "credit_cost": 1
     },

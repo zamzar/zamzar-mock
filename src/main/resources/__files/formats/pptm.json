@@ -1,0 +1,45 @@
+{
+  "name": "pptm",
+  "targets": [
+    {
+      "name": "html5",
+      "credit_cost": 3
+    },
+    {
+      "name": "jpg",
+      "credit_cost": 1
+    },
+    {
+      "name": "odp",
+      "credit_cost": 1
+    },
+    {
+      "name": "pcx",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "png",
+      "credit_cost": 1
+    },
+    {
+      "name": "ppt",
+      "credit_cost": 1
+    },
+    {
+      "name": "pptx",
+      "credit_cost": 1
+    },
+    {
+      "name": "ps",
+      "credit_cost": 1
+    },
+    {
+      "name": "swf",
+      "credit_cost": 1
+    }
+  ]
+}

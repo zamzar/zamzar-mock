@@ -1,0 +1,45 @@
+{
+  "name": "csv",
+  "targets": [
+    {
+      "name": "doc",
+      "credit_cost": 1
+    },
+    {
+      "name": "html",
+      "credit_cost": 1
+    },
+    {
+      "name": "md",
+      "credit_cost": 1
+    },
+    {
+      "name": "mdb",
+      "credit_cost": 1
+    },
+    {
+      "name": "ods",
+      "credit_cost": 1
+    },
+    {
+      "name": "pdf",
+      "credit_cost": 1
+    },
+    {
+      "name": "rtf",
+      "credit_cost": 1
+    },
+    {
+      "name": "xls",
+      "credit_cost": 1
+    },
+    {
+      "name": "xlsx",
+      "credit_cost": 1
+    },
+    {
+      "name": "xml",
+      "credit_cost": 1
+    }
+  ]
+}

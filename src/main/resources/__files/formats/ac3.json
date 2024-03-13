@@ -1,0 +1,29 @@
+{
+  "name": "ac3",
+  "targets": [
+    {
+      "name": "aac",
+      "credit_cost": 1
+    },
+    {
+      "name": "m4a",
+      "credit_cost": 1
+    },
+    {
+      "name": "m4r",
+      "credit_cost": 1
+    },
+    {
+      "name": "mp3",
+      "credit_cost": 1
+    },
+    {
+      "name": "ogg",
+      "credit_cost": 1
+    },
+    {
+      "name": "wav",
+      "credit_cost": 1
+    }
+  ]
+}

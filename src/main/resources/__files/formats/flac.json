@@ -1,5 +1,5 @@
 {
-  "name": "mp3",
+  "name": "flac",
   "targets": [
     {
       "name": "aac",
@@ -7,10 +7,6 @@
     },
     {
       "name": "ac3",
-      "credit_cost": 1
-    },
-    {
-      "name": "flac",
       "credit_cost": 1
     },
     {
@@ -26,7 +22,7 @@
       "credit_cost": 1
     },
     {
-      "name": "mp4",
+      "name": "mp3",
       "credit_cost": 1
     },
     {
@@ -51,10 +47,6 @@
     },
     {
       "name": "wav",
-      "credit_cost": 1
-    },
-    {
-      "name": "wma",
       "credit_cost": 1
     }
   ]
