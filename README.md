@@ -26,6 +26,10 @@ the [Zamzar API documentation](https://developers.zamzar.com/docs).
 * Support for all endpoints in the [Zamzar API](https://developers.zamzar.com/docs)
 * Polling a job or import will cause it to advance through its lifecycle, from `initialising` to `successful` (
   or `failed`).
+* Error responses are returned for requests containing keywords:
+    * `POST /jobs` with a target format of `unsupported` will return a 422
+    * `POST /imports` with a URL containing `unknown` and no filename will return a 422 (implying that the URL's
+      filename cannot be inferred)
 * Additional endpoints for testing:
     * `POST /jobs/ID/destroy` - Remove a job entirely
     * `POST /imports/ID/destroy` - Remove an import entirely
