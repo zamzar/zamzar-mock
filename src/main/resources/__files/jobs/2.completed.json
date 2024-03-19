@@ -6,6 +6,9 @@
     "name": "example.key",
     "size": 420568
   },
+  "target_format": "png",
+  "export_url": "s3://example-bucket/thumbnails/",
+  "credit_cost": 1,
   "target_files": [
     {
       "id": 4,
@@ -28,6 +31,26 @@
       "size": 74457
     }
   ],
-  "target_format": "png",
-  "credit_cost": 1
+  "exports": [
+    {
+      "id": 1,
+      "url": "s3://example-bucket/thumbnails/example-0.png",
+      "status": "successful"
+    },
+    {
+      "id": 2,
+      "url": "s3://example-bucket/thumbnails/example-1.png",
+      "status": "successful"
+    },
+    {
+      "id": 3,
+      "url": "s3://example-bucket/thumbnails/example-2.png",
+      "status": "successful"
+    },
+    {
+      "id": 1,
+      "url": "s3://example-bucket/thumbnails/example.zip",
+      "status": "successful"
+    }
+  ]
 }

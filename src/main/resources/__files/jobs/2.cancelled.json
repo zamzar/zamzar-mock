@@ -6,7 +6,8 @@
     "name": "example.key",
     "size": 420568
   },
-  "target_files": [],
   "target_format": "png",
-  "credit_cost": 1
+  "export_url": "s3://example-bucket/thumbnails/",
+  "credit_cost": 1,
+  "target_files": []
 }
