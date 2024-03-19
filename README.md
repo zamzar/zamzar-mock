@@ -40,7 +40,7 @@ the [Zamzar API documentation](https://developers.zamzar.com/docs).
 By default, `zamzar-mock` will boot with the following example jobs:
 
 * 1 - A successful conversion from `example.mp3` to `example.txt`
-* 2 - A successful conversion from `example.key` to `example-*.png` (multiple output files)
+* 2 - A successful conversion from `example.key` to `example-*.png` (multiple output files; with an export)
 * 3 - A failed conversion from `example.doc` to `example.pdf`
 
 ### Test Imports

@@ -7,5 +7,6 @@
     "size": 420568
   },
   "target_format": "png",
+  "export_url": "s3://example-bucket/thumbnails/",
   "credit_cost": 1
 }
