@@ -7,6 +7,9 @@
     "name": "example.mp3",
     "size": 123456
   },
+  "options": {
+    "voice": "en.female"
+  },
   "target_files": [
     {
       "id": 2,
