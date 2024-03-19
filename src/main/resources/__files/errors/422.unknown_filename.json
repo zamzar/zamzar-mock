@@ -1,0 +1,11 @@
+{
+  "errors": [
+    {
+      "message": "no value was specified for a mandatory parameter",
+      "code": 10,
+      "context": {
+        "parameter": "filename"
+      }
+    }
+  ]
+}

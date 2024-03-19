@@ -238,7 +238,18 @@ public class ConfigureWireMock {
     }
 
     protected void stubStartImport() {
-        stubCreate("imports");
+        stubCreate("imports", "application/x-www-form-urlencoded");
+
+        wiremock.stubFor(post(urlEqualTo("/imports"))
+            .withHeader("Authorization", equalTo("Bearer " + API_KEY))
+            .withHeader("Content-Type", containing("application/x-www-form-urlencoded"))
+            .withRequestBody(matching(".*url=.*unknown.*"))
+            .withRequestBody(notContaining("filename"))
+            .atPriority(1)
+            .willReturn(aResponse()
+                .withStatus(422)
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile("errors/422.unknown_filename.json")));
     }
 
     protected void stubJobs() {
@@ -308,7 +319,7 @@ public class ConfigureWireMock {
     }
 
     protected void stubSubmitJob() {
-        stubCreate("jobs");
+        stubCreate("jobs", "multipart/form-data");
 
         wiremock.stubFor(post(urlEqualTo("/jobs"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -339,10 +350,10 @@ public class ConfigureWireMock {
             ));
     }
 
-    protected void stubCreate(String resource) {
+    protected void stubCreate(String resource, String contentType) {
         wiremock.stubFor(post(urlPathEqualTo("/" + resource))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
-            .withHeader("Content-Type", containing("multipart/form-data"))
+            .withHeader("Content-Type", containing(contentType))
             .atPriority(2) // to allow overriding for, say, returning 422s
             .willReturn(aResponse()
                 .withStatus(200)
