@@ -24,6 +24,8 @@ public class ConfigureWireMock {
 
     protected static final String API_KEY = "GiVUYsF4A8ssq93FR48H";
 
+    protected static final String BASE_PATH = "/v1";
+
     protected final WireMockServer wiremock;
 
     @Deprecated
@@ -89,7 +91,7 @@ public class ConfigureWireMock {
     }
 
     protected void stubAccount() {
-        wiremock.stubFor(get(urlEqualTo("/account"))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/account"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .willReturn(aResponse()
                 .withStatus(200)
@@ -113,7 +115,7 @@ public class ConfigureWireMock {
     protected void stubFile(int id) {
         final String scenarioName = "FileDeletion" + id;
 
-        wiremock.stubFor(get(urlPathEqualTo("/files/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/files/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs(Scenario.STARTED)
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -122,7 +124,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("files/" + id + ".json")));
 
-        wiremock.stubFor(get(urlPathEqualTo("/files/" + id + "/content"))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/files/" + id + "/content"))
             .inScenario(scenarioName)
             .whenScenarioStateIs(Scenario.STARTED)
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -131,7 +133,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/octet-stream")
                 .withBodyFile("files/content/" + id)));
 
-        wiremock.stubFor(delete(urlEqualTo("/files/" + id))
+        wiremock.stubFor(delete(urlPathEqualTo(BASE_PATH + "/files/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs(Scenario.STARTED)
             .willSetStateTo("FileDeleted")
@@ -141,7 +143,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("files/" + id + ".json")));
 
-        wiremock.stubFor(get(urlPathEqualTo("/files/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/files/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("FileDeleted")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -150,7 +152,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("errors/404.json")));
 
-        wiremock.stubFor(get(urlPathEqualTo("/files/" + id + "/content"))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/files/" + id + "/content"))
             .inScenario(scenarioName)
             .whenScenarioStateIs("FileDeleted")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -172,7 +174,7 @@ public class ConfigureWireMock {
     }
 
     protected void stubFormat(String name) {
-        wiremock.stubFor(get(urlEqualTo("/formats/" + name))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/formats/" + name))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .willReturn(aResponse()
                 .withStatus(200)
@@ -181,7 +183,7 @@ public class ConfigureWireMock {
     }
 
     protected void stubFileUpload() {
-        wiremock.stubFor(post(urlPathEqualTo("/files"))
+        wiremock.stubFor(post(urlPathEqualTo(BASE_PATH + "/files"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .willReturn(aResponse()
                 .withStatus(201)
@@ -205,7 +207,7 @@ public class ConfigureWireMock {
     protected void stubImport(int id) {
         final String scenarioName = "ImportProgression" + id;
 
-        wiremock.stubFor(get(urlEqualTo("/imports/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/imports/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs(Scenario.STARTED)
             .willSetStateTo("ImportDownloading")
@@ -215,7 +217,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("imports/" + id + ".initialising.json")));
 
-        wiremock.stubFor(get(urlEqualTo("/imports/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/imports/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("ImportDownloading")
             .willSetStateTo("ImportCompleted")
@@ -225,7 +227,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("imports/" + id + ".downloading.json")));
 
-        wiremock.stubFor(get(urlEqualTo("/imports/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/imports/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("ImportCompleted")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -240,7 +242,7 @@ public class ConfigureWireMock {
     protected void stubStartImport() {
         stubCreate("imports", "application/x-www-form-urlencoded");
 
-        wiremock.stubFor(post(urlEqualTo("/imports"))
+        wiremock.stubFor(post(urlPathEqualTo(BASE_PATH + "/imports"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .withHeader("Content-Type", containing("application/x-www-form-urlencoded"))
             .withRequestBody(matching(".*url=.*unknown.*"))
@@ -268,7 +270,7 @@ public class ConfigureWireMock {
     protected void stubJob(int id) {
         final String scenarioName = "JobProgression" + id;
 
-        wiremock.stubFor(get(urlEqualTo("/jobs/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/jobs/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs(Scenario.STARTED)
             .willSetStateTo("JobConverting")
@@ -278,7 +280,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("jobs/" + id + ".initialising.json")));
 
-        wiremock.stubFor(get(urlEqualTo("/jobs/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/jobs/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("JobConverting")
             .willSetStateTo("JobCompleted")
@@ -288,7 +290,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("jobs/" + id + ".converting.json")));
 
-        wiremock.stubFor(get(urlEqualTo("/jobs/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/jobs/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("JobCompleted")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -297,7 +299,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("jobs/" + id + ".completed.json")));
 
-        wiremock.stubFor(delete(urlEqualTo("/jobs/" + id))
+        wiremock.stubFor(delete(urlPathEqualTo(BASE_PATH + "/jobs/" + id))
             .inScenario(scenarioName)
             .willSetStateTo("JobCancelled")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -306,7 +308,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile("jobs/" + id + ".cancelled.json")));
 
-        wiremock.stubFor(get(urlEqualTo("/jobs/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/jobs/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("JobCancelled")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -321,7 +323,7 @@ public class ConfigureWireMock {
     protected void stubSubmitJob() {
         stubCreate("jobs", "multipart/form-data");
 
-        wiremock.stubFor(post(urlEqualTo("/jobs"))
+        wiremock.stubFor(post(urlPathEqualTo(BASE_PATH + "/jobs"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .withHeader("Content-Type", containing("multipart/form-data"))
             .withRequestBody(matching(".*name=\"target_format\"[\\s\\S]*unsupported.*"))
@@ -351,7 +353,7 @@ public class ConfigureWireMock {
     }
 
     protected void stubCreate(String resource, String contentType) {
-        wiremock.stubFor(post(urlPathEqualTo("/" + resource))
+        wiremock.stubFor(post(urlPathEqualTo(BASE_PATH + "/" + resource))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .withHeader("Content-Type", containing(contentType))
             .atPriority(2) // to allow overriding for, say, returning 422s
@@ -363,7 +365,7 @@ public class ConfigureWireMock {
     }
 
     protected void stubDestroy(String resource, String id, String scenarioName) {
-        wiremock.stubFor(post(urlEqualTo("/" + resource + "/" + id + "/destroy"))
+        wiremock.stubFor(post(urlPathEqualTo(BASE_PATH + "/" + resource + "/" + id + "/destroy"))
             .inScenario(scenarioName)
             .willSetStateTo("Destroyed")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
@@ -372,7 +374,7 @@ public class ConfigureWireMock {
                 .withHeader("Content-Type", "application/json")));
 
 
-        wiremock.stubFor(get(urlEqualTo("/" + resource + "/" + id))
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/" + resource + "/" + id))
             .inScenario(scenarioName)
             .whenScenarioStateIs("Destroyed")
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
