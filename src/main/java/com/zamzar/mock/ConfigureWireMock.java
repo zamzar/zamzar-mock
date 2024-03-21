@@ -242,6 +242,10 @@ public class ConfigureWireMock {
     protected void stubStartImport() {
         stubCreate("imports", "application/x-www-form-urlencoded");
 
+        // Some clients (including v2 of our own PHP SDK) use multipart/form-data even though there
+        // is no file to upload. This is a common mistake, so we should handle it gracefully.
+        stubCreate("imports", "multipart/form-data");
+
         wiremock.stubFor(post(urlPathEqualTo(BASE_PATH + "/imports"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .withHeader("Content-Type", containing("application/x-www-form-urlencoded"))
