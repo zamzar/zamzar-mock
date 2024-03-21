@@ -14,6 +14,7 @@ import com.zamzar.mock.pagination.Anchor;
 import com.zamzar.mock.pagination.PageCoordinates;
 
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class IndexTransformer implements ResponseTransformerV2 {
@@ -23,6 +24,10 @@ public class IndexTransformer implements ResponseTransformerV2 {
     public static final String RESOURCE_PARAMETER = "resource";
     public static final String ID_FIELD_NAME_PARAMETER = "idFieldName";
     public static final String ASCENDING_PARAMETER = "ascending";
+
+    public static final String FILENAME_SUFFIX_PARAMETER = "filenameSuffix";
+
+    public static final String PREDICATE_PARAMETER = "predicate";
 
     @Override
     public boolean applyGlobally() {
@@ -44,9 +49,11 @@ public class IndexTransformer implements ResponseTransformerV2 {
         final PageCoordinates coordinates = getCoordinates(request);
         final String idFieldName = getIdFieldName(parameters);
         final boolean isAscending = isAscending(parameters);
+        final String filenameSuffix = getFilenameSuffix(parameters);
+        final Predicate<JsonNode> predicate = getPredicate(parameters);
 
         try {
-            final List<JsonNode> all = readAll(repository, resource, isAscending);
+            final List<JsonNode> all = readAll(repository, resource, isAscending, filenameSuffix, predicate);
             final String responseBody = buildResponseBody(all, coordinates, idFieldName);
 
             return Response.Builder.like(response).but()
@@ -58,7 +65,13 @@ public class IndexTransformer implements ResponseTransformerV2 {
         }
     }
 
-    protected List<JsonNode> readAll(ExamplesRepository repo, String resource, boolean isAscending) throws JsonProcessingException {
+    protected List<JsonNode> readAll(
+        ExamplesRepository repo,
+        String resource,
+        boolean isAscending,
+        String filenameSuffix,
+        Predicate<JsonNode> filter
+    ) throws JsonProcessingException {
         final Collection<String> allFilenames = repo.all(resource, true)
             .stream()
             .sorted(isAscending ? Comparator.naturalOrder() : Comparator.reverseOrder())
@@ -67,13 +80,16 @@ public class IndexTransformer implements ResponseTransformerV2 {
         final Set<String> seen = new HashSet<>();
         final List<JsonNode> all = new ArrayList<>();
         for (String filename : allFilenames) {
-            // if the filename contains a dot, it has a "lifecycle" => parse the initialising file
+            // if the filename contains a dot, it has a "lifecycle" => parse the file with specified suffix
             // otherwise => parse the file as is
             final String id = filename.contains(".") ? filename.split("\\.")[0] : filename;
-            final String relevantFilename = filename.contains(".") ? filename.split("\\.")[0] + ".initialising" : filename;
+            final String relevantFilename = filename.contains(".") ? filename.split("\\.")[0] + filenameSuffix : filename;
 
-            if (seen.add(id)) {
-                all.add(repo.parse(resource, relevantFilename));
+            if (seen.add(id)) { // only add the first occurrence of an id
+                final JsonNode parsed = repo.parse(resource, relevantFilename);
+                if (filter.test(parsed)) {
+                    all.add(parsed);
+                }
             }
         }
         return all;
@@ -120,6 +136,15 @@ public class IndexTransformer implements ResponseTransformerV2 {
 
     protected boolean isAscending(Parameters parameters) {
         return (boolean) parameters.get(ASCENDING_PARAMETER);
+    }
+
+    protected String getFilenameSuffix(Parameters parameters) {
+        return (String) parameters.getOrDefault(FILENAME_SUFFIX_PARAMETER, ".initialising");
+    }
+
+    @SuppressWarnings("unchecked")
+    protected Predicate<JsonNode> getPredicate(Parameters parameters) {
+        return (Predicate<JsonNode>) parameters.getOrDefault(PREDICATE_PARAMETER, (Predicate<JsonNode>) (n) -> true);
     }
 
     protected PageCoordinates getCoordinates(Request request) {
