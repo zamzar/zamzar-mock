@@ -1,5 +1,6 @@
 package com.zamzar.mock;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.common.FileSource;
 import com.github.tomakehurst.wiremock.common.SingleRootFileSource;
@@ -12,8 +13,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
@@ -108,7 +109,7 @@ public class ConfigureWireMock {
             .collect(Collectors.toList());
 
         fileIds.forEach(this::stubFile);
-        stubPaginatedList("files", fileIds.stream().map(Object::toString), "id", false);
+        stubPaginatedList("files", "id", false);
         stubFileUpload();
     }
 
@@ -170,7 +171,7 @@ public class ConfigureWireMock {
                 .collect(Collectors.toList());
 
         formats.forEach(this::stubFormat);
-        stubPaginatedList("formats", formats.stream().map(Object::toString), "name", true);
+        stubPaginatedList("formats", "name", true);
     }
 
     protected void stubFormat(String name) {
@@ -200,7 +201,7 @@ public class ConfigureWireMock {
             .collect(Collectors.toList());
 
         importIds.forEach(this::stubImport);
-        stubPaginatedList("imports", importIds.stream().map(i -> i + ".initialising"), "id", false);
+        stubPaginatedList("imports", ".initialising", "id", false);
         stubStartImport();
     }
 
@@ -267,7 +268,20 @@ public class ConfigureWireMock {
             .collect(Collectors.toList());
 
         jobIds.forEach(this::stubJob);
-        stubPaginatedList("jobs", jobIds.stream().map(i -> i + ".initialising"), "id", false);
+        stubPaginatedList(
+            "jobs",
+            ".initialising",
+            "id",
+            false
+        );
+        stubPaginatedList(
+            "jobs/successful",
+            "jobs",
+            ".completed",
+            "id",
+            false,
+            n -> n.get("status").asText().equals("successful")
+        );
         stubSubmitJob();
     }
 
@@ -338,12 +352,16 @@ public class ConfigureWireMock {
                 .withBodyFile("errors/422.target_format.json")));
     }
 
-    protected void stubPaginatedList(String resource, Stream<String> filenames, String idFieldName, boolean isAscending) {
-        final List<String> paths = filenames
-            .map(filename -> "__files/" + resource + "/" + filename + ".json")
-            .collect(Collectors.toList());
+    protected void stubPaginatedList(String resource, String idFieldName, boolean isAscending) {
+        stubPaginatedList(resource, resource, "", idFieldName, isAscending, n -> true);
+    }
 
-        wiremock.stubFor(get(urlMatching("/" + resource + "(\\?.*)?"))
+    protected void stubPaginatedList(String resource, String filenameSuffix, String idFieldName, boolean isAscending) {
+        stubPaginatedList(resource, resource, filenameSuffix, idFieldName, isAscending, n -> true);
+    }
+
+    protected void stubPaginatedList(String path, String resource, String filenameSuffix, String idFieldName, boolean isAscending, Predicate<JsonNode> filter) {
+        wiremock.stubFor(get(urlMatching(BASE_PATH + "/" + path + "(\\?.*)?"))
             .withHeader("Authorization", equalTo("Bearer " + API_KEY))
             .willReturn(aResponse()
                 .withStatus(200)
@@ -351,8 +369,10 @@ public class ConfigureWireMock {
                 .withTransformers(IndexTransformer.NAME)
                 .withTransformerParameter(IndexTransformer.EXAMPLES_REPOSITORY_PARAMETER, examples)
                 .withTransformerParameter(IndexTransformer.RESOURCE_PARAMETER, resource)
+                .withTransformerParameter(IndexTransformer.FILENAME_SUFFIX_PARAMETER, filenameSuffix)
                 .withTransformerParameter(IndexTransformer.ID_FIELD_NAME_PARAMETER, idFieldName)
                 .withTransformerParameter(IndexTransformer.ASCENDING_PARAMETER, isAscending)
+                .withTransformerParameter(IndexTransformer.PREDICATE_PARAMETER, filter)
             ));
     }
 
