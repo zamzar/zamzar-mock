@@ -19,7 +19,7 @@ test: build
 	    --retry 5 --retry-delay 1 --retry-all-errors \
 	    --fail \
 	    -4 \
-	    http://localhost:8081/jobs/1 -H 'Authorization: Bearer GiVUYsF4A8ssq93FR48H'
+	    http://localhost:8081/v1/jobs/1 -H 'Authorization: Bearer GiVUYsF4A8ssq93FR48H'
 	@docker stop zamzar-mock-test > /dev/null
 
 run: build
