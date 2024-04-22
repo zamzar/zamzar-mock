@@ -11,6 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 // Wiremock logs all transformers, including their parameters.
@@ -30,13 +31,21 @@ public class ExamplesRepository {
     }
 
     public Collection<String> all(String resource, boolean includeState) {
-        return fileSource
+        final Set<String> all = fileSource
             .child(resource)
             .listFilesRecursively()
             .stream()
             .filter(f -> f.getPath().endsWith(".json"))
             .map(file -> extractBaseName(file, includeState))
             .collect(Collectors.toSet());
+
+        // Special case for the files resource: remove the special large file
+        // This should not appear in indexes nor should it be stubbed with a file on disk
+        if ("files".equals(resource)) {
+            all.remove("0");
+        }
+
+        return all;
     }
 
     public boolean exists(String resource, String id) {

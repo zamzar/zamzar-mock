@@ -65,7 +65,8 @@ public class ConfigureWireMock {
     protected static WireMockServer startWireMock(FileSource fileSource) {
         final WireMockConfiguration config = options()
             .fileSource(fileSource)
-            .extensions(new IndexTransformer());
+            .extensions(new IndexTransformer())
+            .extensions(new LargeFileTransformer());
 
         final WireMockServer wireMockServer = new WireMockServer(config);
         wireMockServer.start();
@@ -110,7 +111,25 @@ public class ConfigureWireMock {
 
         fileIds.forEach(this::stubFile);
         stubPaginatedList("files", "id", false);
+        stubLargeFile();
         stubFileUpload();
+    }
+
+    protected void stubLargeFile() {
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/files/0"))
+            .withHeader("Authorization", equalTo("Bearer " + API_KEY))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withHeader("Content-Type", "application/json")
+                .withBodyFile("files/0.json")));
+
+        wiremock.stubFor(get(urlPathEqualTo(BASE_PATH + "/files/0/content"))
+            .withHeader("Authorization", equalTo("Bearer " + API_KEY))
+            .willReturn(aResponse()
+                .withStatus(200)
+                .withTransformers(LargeFileTransformer.NAME)
+                .withTransformerParameter(LargeFileTransformer.GET_SIZE_IN_MB_PARAMETER, 256)
+            ));
     }
 
     protected void stubFile(int id) {
