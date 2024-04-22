@@ -53,7 +53,10 @@ By default, `zamzar-mock` will boot with the following example imports:
 
 ### Test Files
 
-By default, `zamzar-mock` will boot with at least 7 example files.
+By default, `zamzar-mock` will boot with:
+
+* at least 7 example files
+* a file with the special ID 0 that is large (256MB) and cannot be deleted
 
 ## Important Caveats
 
