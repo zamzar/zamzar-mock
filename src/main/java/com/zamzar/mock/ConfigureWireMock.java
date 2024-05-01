@@ -401,7 +401,7 @@ public class ConfigureWireMock {
             .withHeader("Content-Type", containing(contentType))
             .atPriority(2) // to allow overriding for, say, returning 422s
             .willReturn(aResponse()
-                .withStatus(200)
+                .withStatus(201)
                 .withHeader("Content-Type", "application/json")
                 .withBodyFile(resource + "/1.initialising.json")
             ));
